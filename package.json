@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start-sync": "npx browser-sync start . -s --files '*.html, *.css, ./src/*'",
-    "start": "webpack-dev-server --config webpack/webpack.dev.config.js",
-    "build": "webpack --config webpack/webpack.prod.config.js"
+    "start": "npm run generate-event-names && webpack-dev-server --config webpack/webpack.dev.config.js",
+    "build": "webpack --config webpack/webpack.prod.config.js",
+    "generate-event-names": "node ./scripts/generate-event-names.js --name=ModelEvents --input=./src/models --output=./src/events --type=js"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -24,7 +25,10 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@armathai/lego": "^3.0.2",
+    "@armathai/lego-logger": "^3.0.2",
     "@armathai/pixi-grid": "^3.0.5",
+    "fs-extra": "^9.0.1",
     "pixi.js": "^5.3.3"
   }
 }

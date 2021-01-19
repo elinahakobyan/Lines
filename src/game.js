@@ -1,4 +1,8 @@
+import { lego } from '@armathai/lego';
+import { legologger } from '@armathai/lego-logger';
 import * as PIXI from 'pixi.js';
+import { startupCommand } from './commands/startupCommand';
+import { ViewEvents } from './events/view-events';
 import { MainView } from './views/main-view';
 
 export class Game extends PIXI.Application {
@@ -20,7 +24,7 @@ export class Game extends PIXI.Application {
   }
 
   _loadAssets() {
-    this.loader.add('logo', 'assets/logo.png');
+    // this.loader.add('logo', 'assets/logo.png');
     this.loader.load(() => {
       this._build();
     });
@@ -28,5 +32,8 @@ export class Game extends PIXI.Application {
 
   _build() {
     this.stage.addChild((this._mainView = new MainView()));
+    legologger.start(lego);
+    lego.command.execute(startupCommand);
+    lego.event.emit(ViewEvents.Game.LoadComplete);
   }
 }

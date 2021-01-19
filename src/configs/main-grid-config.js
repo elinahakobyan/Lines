@@ -14,9 +14,12 @@ export function mainGridConfig() {
       bounds: { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight },
       cells: [
         {
-          name: 'logo',
-          bounds: { x: 0, y: 0, width: 1, height: 0.2 },
-          padding: 0.1,
+          name: 'board',
+          bounds: { x: 0.35, y: 0.2, width: 0.3, height: 0.6 },
+          debug: {
+            color: 0xbdcfdd,
+            fill: true,
+          },
         },
       ],
     },
