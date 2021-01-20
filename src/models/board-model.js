@@ -1,13 +1,15 @@
 import { CellModel } from './cell-model';
 import { ObservableModel } from './observable-model';
+import { BALLS, BoardDimension, EntryCellsCount } from '../constants';
+import sampleSize from 'lodash.samplesize';
+import { BallModel } from './ball-model';
+import sample from 'lodash.sample';
 
 export class BoardModel extends ObservableModel {
   constructor() {
     super('BoardModel');
 
-    this._cells = [];
-    this._build();
-
+    this._cells = null;
     this.makeObservable();
   }
 
@@ -15,21 +17,40 @@ export class BoardModel extends ObservableModel {
     return this._cells;
   }
 
-  _build() {
-    this.createCells();
+  getEmptyCells(count) {
+    const emptyCells = sampleSize(
+      this._cells.filter((cell) => cell.isEmpty),
+      count
+    );
+
+    return emptyCells;
   }
 
-  createCells() {
-    const size = 8;
-    const gap = 10;
+  setBallsIntoCells() {
+    const { count } = EntryCellsCount;
+    const emptyCells = this.getEmptyCells(count);
+    console.warn(emptyCells);
+    emptyCells.forEach((cell) => {
+      cell.addBall(sample(BALLS));
+    });
+  }
 
-    for (let i = 0; i < size; i++) {
-      const row = [];
-      for (let j = 0; j < size; j++) {
+  initialize() {
+    this._initCells();
+    this.setBallsIntoCells();
+  }
+
+  _initCells() {
+    const cells = [];
+
+    const { width, height } = BoardDimension;
+    const gap = 10;
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
         const cell = new CellModel(i, j);
-        row.push(cell);
+        cells.push(cell);
       }
-      this._cells.push(row);
     }
+    this._cells = cells;
   }
 }

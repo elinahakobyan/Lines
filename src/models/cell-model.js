@@ -1,3 +1,4 @@
+import { BallModel } from './ball-model';
 import { ObservableModel } from './observable-model';
 
 export class CellModel extends ObservableModel {
@@ -7,7 +8,6 @@ export class CellModel extends ObservableModel {
     this._row = row;
     this._col = col;
     this._ball = null;
-
     this.makeObservable();
   }
 
@@ -27,21 +27,8 @@ export class CellModel extends ObservableModel {
     return !this._ball;
   }
 
-  addBall(ball) {
-    this._ball = ball;
-  }
-
-  removeball() {
-    const ball = this._ball;
-    this._ball = null;
-    return ball;
-  }
-
-  _build() {
-    const gr = new PIXI.Graphics();
-    gr.beginFill(0xf2f6f9);
-    gr.drawRect(0, 0, 150, 150);
-    gr.endFill();
-    this.addChild(gr);
+  addBall(type) {
+    this._ball = new BallModel(type);
+    this._ball.initialize();
   }
 }

@@ -1,4 +1,3 @@
-import { lego } from '@armathai/lego';
 import { ObservableModel } from './observable-model';
 import { BoardModel } from './board-model';
 
@@ -6,18 +5,17 @@ export class GameModel extends ObservableModel {
   constructor() {
     super('GameModel');
 
-    this._boardModel = null;
+    this._board = null;
 
     this.makeObservable();
-    this.initializeBoard();
   }
 
-  get boardModel() {
-    return this._boardModel;
+  get board() {
+    return this._board;
   }
 
-  initializeBoard() {
-    this._boardModel = new BoardModel();
-    this._boardModel.initialize();
+  initialize() {
+    this._board = new BoardModel();
+    this._board.initialize();
   }
 }

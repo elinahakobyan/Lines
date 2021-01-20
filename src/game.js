@@ -27,13 +27,11 @@ export class Game extends PIXI.Application {
     // this.loader.add('logo', 'assets/logo.png');
     this.loader.load(() => {
       this._build();
+      lego.event.emit(ViewEvents.Game.LoadComplete);
     });
   }
 
   _build() {
     this.stage.addChild((this._mainView = new MainView()));
-    legologger.start(lego);
-    lego.command.execute(startupCommand);
-    lego.event.emit(ViewEvents.Game.LoadComplete);
   }
 }

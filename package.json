@@ -29,6 +29,8 @@
     "@armathai/lego-logger": "^3.0.2",
     "@armathai/pixi-grid": "^3.0.5",
     "fs-extra": "^9.0.1",
+    "lodash.sample": "^4.2.1",
+    "lodash.samplesize": "^4.2.0",
     "pixi.js": "^5.3.3"
   }
 }

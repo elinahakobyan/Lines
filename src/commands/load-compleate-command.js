@@ -1,10 +1,6 @@
 import { lego } from '@armathai/lego';
-import { store } from '../models/store';
+import { initializeGameModelCommand } from './initialize-game-model-command';
 
 export function onloadCompleateCommand() {
   lego.command.execute(initializeGameModelCommand);
-}
-
-export function initializeGameModelCommand() {
-  store.initializeGameModel();
 }
