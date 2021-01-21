@@ -1,18 +1,22 @@
-export class BallView extends PIXI.Container {
+export class BallView extends PIXI.Graphics {
   constructor(ballModel) {
     super();
-    this._buildBall(ballModel);
+    this.beginFill(ballModel.type);
+    this.drawCircle(0, 0, 40);
+    this.endFill();
   }
 
   get name() {
     return 'BallView';
   }
 
-  _buildBall(ballModel) {
-    const gr = new PIXI.Graphics();
-    gr.beginFill(ballModel.type);
-    gr.drawCircle(0, 0, 70, 70);
-    gr.endFill();
-    this.addChild(gr);
+  activate() {
+    this.alpha = 0.5;
+    return this;
+  }
+
+  deactivate() {
+    this.alpha = 1;
+    return this;
   }
 }

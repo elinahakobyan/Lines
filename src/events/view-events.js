@@ -4,5 +4,9 @@ export const ViewEvents = Object.freeze({
   },
   BoardView: {
     CreateBoard: 'BoardViewCreateBoard',
+    CellClick: 'BoardViewCellClick',
+  },
+  CellView: {
+    OnClick: 'CellViewOnClick',
   },
 });

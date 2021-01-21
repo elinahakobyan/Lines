@@ -1,15 +1,20 @@
 import { lego } from '@armathai/lego';
 import { ModelEvents } from '../events/model-events';
 import { BallView } from './ball-view';
+import { ViewEvents } from '../events/view-events';
 
 export class CellView extends PIXI.Container {
-  constructor(row, col) {
+  constructor(row, col, uuid) {
     super();
     this._row = row;
     this._col = col;
     this._ball = null;
-
+    this._uuid = uuid;
+    this.interactive = true;
+    this._addEvent();
     lego.event.on(ModelEvents.CellModel.BallUpdate, this._onBallUpdate, this);
+    lego.event.on(ModelEvents.CellModel.ActivateUpdate, this._onBallUpdate, this);
+
     this._buildBg();
   }
 
@@ -25,21 +30,34 @@ export class CellView extends PIXI.Container {
     return this._col;
   }
 
+  get uuid() {
+    return this._uuid;
+  }
+
   _buildBg() {
     const gr = new PIXI.Graphics();
     gr.beginFill(0xe8bacc);
-    gr.drawRect(0, 0, 100, 100);
+    gr.drawRect(-50, -50, 100, 100);
     gr.endFill();
     this.addChild(gr);
   }
 
-  _onBallUpdate(ballModel) {
-    ballModel ? this._buildBallView(ballModel) : this._destroyeBallView();
+  _onBallUpdate(newValue, oldValue, uuid) {
+    if (uuid !== this._uuid) {
+      return;
+    }
+    newValue ? this._buildBallView(newValue) : this._destroyeBallView();
   }
 
   _buildBallView(ballModel) {
-    this.addChild((this._ballView = new BallView(ballModel)));
-    // console.warn(boardModel);
+    this.addChild((this._ball = new BallView(ballModel)));
+    this._ball.activate();
+  }
+
+  _addEvent() {
+    this.on('pointerdown', () => {
+      this.emit(ViewEvents.CellView.OnClick, this._uuid);
+    });
   }
 
   // _destroyeBallView() {

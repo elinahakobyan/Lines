@@ -17,6 +17,10 @@ export class BoardModel extends ObservableModel {
     return this._cells;
   }
 
+  get activeCell() {
+    return this._cells.find((cell) => cell.isActive);
+  }
+
   getEmptyCells(count) {
     const emptyCells = sampleSize(
       this._cells.filter((cell) => cell.isEmpty),
@@ -26,10 +30,13 @@ export class BoardModel extends ObservableModel {
     return emptyCells;
   }
 
+  getCellByUuid(uuid) {
+    return this._cells.find((cell) => cell.uuid === uuid);
+  }
+
   setBallsIntoCells() {
     const { count } = EntryCellsCount;
     const emptyCells = this.getEmptyCells(count);
-    console.warn(emptyCells);
     emptyCells.forEach((cell) => {
       cell.addBall(sample(BALLS));
     });

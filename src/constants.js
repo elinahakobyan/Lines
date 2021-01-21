@@ -7,4 +7,4 @@ export const EntryCellsCount = Object.freeze({
   count: 5,
 });
 
-export const BALLS = ['0xffc4cd', '0xec6486', '0xb2344e', '0xba0c00', '0x480113'];
+export const BALLS = ['0x443377', '0xFF0000', '0x7CD1F9', '0xFFC173', '0xFAF0E6'];

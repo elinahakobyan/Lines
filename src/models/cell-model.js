@@ -1,3 +1,5 @@
+import { lego } from '@armathai/lego';
+import { ViewEvents } from '../events/view-events';
 import { BallModel } from './ball-model';
 import { ObservableModel } from './observable-model';
 
@@ -8,7 +10,9 @@ export class CellModel extends ObservableModel {
     this._row = row;
     this._col = col;
     this._ball = null;
+    this._isActive = false;
     this.makeObservable();
+    // lego.event.on(ViewEvents.CellView.OnClick,this.)
   }
 
   get row() {
@@ -25,6 +29,18 @@ export class CellModel extends ObservableModel {
 
   get isEmpty() {
     return !this._ball;
+  }
+
+  get isActive() {
+    return this._isActive;
+  }
+
+  activate() {
+    this._isActive = true;
+  }
+
+  deactivate() {
+    this._activate = false;
   }
 
   addBall(type) {
