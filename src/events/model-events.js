@@ -5,13 +5,14 @@ export const ModelEvents = Object.freeze({
   BoardModel: {
     CellsUpdate: 'BoardModelCellsUpdate',
     ActiveCellUpdate: 'BoardModelActiveCellUpdate',
+    SelectedCellUpdate: 'BoardModelSelectedCellUpdate',
   },
   CellModel: {
     RowUpdate: 'CellModelRowUpdate',
     ColUpdate: 'CellModelColUpdate',
     BallUpdate: 'CellModelBallUpdate',
     IsEmptyUpdate: 'CellModelIsEmptyUpdate',
-    IsActiveUpdate: 'CellModelIsActiveUpdate',
+    IsSelectedUpdate: 'CellModelIsSelectedUpdate',
   },
   GameModel: {
     BoardUpdate: 'GameModelBoardUpdate',

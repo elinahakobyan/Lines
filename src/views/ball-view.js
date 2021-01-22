@@ -11,12 +11,12 @@ export class BallView extends PIXI.Graphics {
   }
 
   activate() {
-    this.alpha = 0.5;
+    this.scale.set(0.65);
     return this;
   }
 
   deactivate() {
-    this.alpha = 1;
+    this.scale.set(1);
     return this;
   }
 }

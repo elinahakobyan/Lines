@@ -13,7 +13,6 @@ export class CellView extends PIXI.Container {
     this.interactive = true;
     this._addEvent();
     lego.event.on(ModelEvents.CellModel.BallUpdate, this._onBallUpdate, this);
-    lego.event.on(ModelEvents.CellModel.ActivateUpdate, this._onBallUpdate, this);
 
     this._buildBg();
   }
@@ -34,6 +33,14 @@ export class CellView extends PIXI.Container {
     return this._uuid;
   }
 
+  select() {
+    this._ball.activate();
+  }
+
+  deselect() {
+    this._ball.deactivate();
+  }
+
   _buildBg() {
     const gr = new PIXI.Graphics();
     gr.beginFill(0xe8bacc);
@@ -51,7 +58,12 @@ export class CellView extends PIXI.Container {
 
   _buildBallView(ballModel) {
     this.addChild((this._ball = new BallView(ballModel)));
-    this._ball.activate();
+  }
+
+  _destroyeBallView() {
+    this.removeChild(this._ball);
+    this.ball = null;
+    return this._ball;
   }
 
   _addEvent() {

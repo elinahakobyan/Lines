@@ -11,6 +11,8 @@ export class BoardView extends PIXI.Container {
 
     this._cells = [];
     lego.event.on(ModelEvents.BoardModel.CellsUpdate, this._onCellsUpdate, this);
+    lego.event.on(ModelEvents.CellModel.IsSelectedUpdate, this._onSelectedUpdate, this);
+    lego.event.on(ModelEvents.CellModel.BallUpdate, this._BallUpdate, this);
   }
 
   getCellByUuid(uuid) {
@@ -23,17 +25,27 @@ export class BoardView extends PIXI.Container {
   }
 
   _onCellClick(uuid) {
-    console.warn(uuid);
     lego.event.emit(ViewEvents.BoardView.CellClick, uuid);
   }
 
+  _BallUpdate(newvalue, oldvalue, uuid) {
+    // console.warn('aaa');
+    // const cell = this.getCellByUuid(uuid);
+    // newvalue?cell.():
+  }
+
+  _onSelectedUpdate(newvalue, oldvalue, uuid) {
+    const cell = this.getCellByUuid(uuid);
+    newvalue ? cell.select() : cell.deselect();
+  }
+
   _createCells(cells) {
-    const { width, height } = BoardDimension;
-    const cells2D = chunk(cells, width);
+    const { size } = BoardDimension;
+    const cells2D = chunk(cells, size);
 
     const gap = 15;
-    for (let i = 0; i < width; i++) {
-      for (let j = 0; j < height; j++) {
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
         const cell = cells2D[i][j];
         const cellView = new CellView(i, j, cell.uuid);
         cellView.on(ViewEvents.CellView.OnClick, this._onCellClick, this);

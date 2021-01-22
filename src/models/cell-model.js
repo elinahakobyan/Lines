@@ -10,9 +10,8 @@ export class CellModel extends ObservableModel {
     this._row = row;
     this._col = col;
     this._ball = null;
-    this._isActive = false;
+    this._isSelected = false;
     this.makeObservable();
-    // lego.event.on(ViewEvents.CellView.OnClick,this.)
   }
 
   get row() {
@@ -31,20 +30,26 @@ export class CellModel extends ObservableModel {
     return !this._ball;
   }
 
-  get isActive() {
-    return this._isActive;
+  get isSelected() {
+    return this._isSelected;
   }
 
-  activate() {
-    this._isActive = true;
+  select() {
+    this._isSelected = true;
   }
 
-  deactivate() {
-    this._activate = false;
+  deselect() {
+    this._isSelected = false;
   }
 
   addBall(type) {
     this._ball = new BallModel(type);
     this._ball.initialize();
+  }
+
+  removeBall() {
+    const ball = this._ball;
+    this._ball = null;
+    return ball;
   }
 }

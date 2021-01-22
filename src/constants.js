@@ -1,6 +1,5 @@
 export const BoardDimension = Object.freeze({
-  width: 8,
-  height: 8,
+  size: 8,
 });
 
 export const EntryCellsCount = Object.freeze({
