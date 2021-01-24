@@ -4,19 +4,23 @@ import { selectedCellGuard } from '../guards/selected-cell-guard';
 import { store } from '../models/store';
 import { deselectSelectedCellCommand } from './deselect-selected-cell-command';
 import { generateNewBallsSetCommand } from './generate-new-balls-set-command';
+import { moveBall, moveBallCommand } from './move-ball-command';
 import { selectCellCommand } from './select-cell-command';
+import { checkMatchCommand } from './check-match-command';
+
 
 export function onCellClickCommand(cellUuid) {
   const cell = store.game.board.getCellByUuid(cellUuid);
   const selectedCell = store.game.board.selectedCell;
   if (cell.isEmpty) {
     if (selectedCell) {
-      const path = store.game.board.getPath(selectedCell, cell);
       lego.command.payload(selectedCell).execute(deselectSelectedCellCommand);
-      const ball = selectedCell.removeBall();
-      cell.addBall(ball.type);
-      store.game.board.checkMath();
-      lego.command.execute(generateNewBallsSetCommand);
+      lego.command.payload(selectedCell, cell).execute(moveBallCommand);
+      lego.command.execute(checkMatchCommand)
+      // const ball = selectedCell.removeBall();
+      // console.warn(ball);
+      // cell.addBall(ball.type);
+      // lego.command.execute(generateNewBallsSetCommand)
     }
   } else {
     if (selectedCell) {

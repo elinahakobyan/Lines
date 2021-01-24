@@ -4,7 +4,7 @@ import { BALLS, BoardDimension, EntryCellsCount } from '../constants';
 import sampleSize from 'lodash.samplesize';
 import { BallModel } from './ball-model';
 import sample from 'lodash.sample';
-import { findHorizontal, findMainDiagonal, findSecondaryDiagonal, findVertical } from '../utils';
+import { findHorizontal, findMainDiagonal, findSecondaryDiagonal, findVertical, contains } from '../utils';
 import chunk from 'lodash.chunk';
 
 export class BoardModel extends ObservableModel {
@@ -13,7 +13,7 @@ export class BoardModel extends ObservableModel {
 
     this._cells = null;
     this._combinations = [];
-
+    this._score = 0;
     this.makeObservable();
   }
 
@@ -27,6 +27,10 @@ export class BoardModel extends ObservableModel {
 
   get selectedCell() {
     return this._cells.find((cell) => cell.isSelected);
+  }
+
+  get score() {
+    return this._score;
   }
 
   getEmptyCells(count) {
@@ -47,6 +51,7 @@ export class BoardModel extends ObservableModel {
     emptyCells.forEach((cell) => {
       cell.addBall(sample(BALLS));
     });
+    this.checkMatch()
   }
 
   initialize() {
@@ -68,20 +73,19 @@ export class BoardModel extends ObservableModel {
     this._cells = cells;
   }
 
-  checkMath() {
+  checkMatch() {
     this._updateCombinations();
-
     if (this._combinations.length) {
       this._destroyBalls();
     }
   }
 
   _updateCombinations() {
+
     const { size } = BoardDimension;
 
     this._combinations.length = 0;
     this.cells2D = chunk(this._cells, size);
-
     for (let i = 0; i < this.cells2D.length; i++) {
       for (let j = 0; j < this.cells2D[i].length; j++) {
         const cell = this.cells2D[i][j];
@@ -135,7 +139,6 @@ export class BoardModel extends ObservableModel {
     const { size } = BoardDimension;
     this.cells2D = chunk(this._cells, size);
 
-    console.warn(this.cells2D);
     for (let i = 0; i < this.cells2D.length; i++) {
       for (let j = 0; j < this.cells2D[i].length; j++) {
         const cell = this.cells2D[i][j];
@@ -155,19 +158,42 @@ export class BoardModel extends ObservableModel {
       combo.forEach((cell, index) => {
         setTimeout(() => {
           cell.removeBall();
+          this._score += 10;
         }, index * 80 + 300);
       });
     });
   }
 
-  getPath(from, to) {
+  moveBall(from, to) {
     const { size } = BoardDimension;
     this.cells2D = chunk(this._cells, size);
 
-    const { row: fromRow, col: fromCol } = from;
-    const { row: toRow, col: toCol } = to;
+    const path = this._getPath(from, to)
 
-    var PF = require('pathfinding');
+    if (path.length > 0) {
+      let i = 0;
+      const ball = from.removeBall();
+
+      const interval = setInterval(() => {
+        const cell = this.cells2D[path[i][0]][path[i][1]];
+        cell.addBall(ball.type);
+        cell.removeBall()
+        i++;
+        if (i >= path.length) {
+          to.addBall(ball.type);
+          clearInterval(interval);
+          this.setBallsIntoCells(3)
+        }
+      }, 100);
+    }
+    if (path.length === 0) {
+      //
+    }
+  }
+
+  _getMatrix() {
+    const { size } = BoardDimension;
+    this.cells2D = chunk(this._cells, size);
 
     const matrix = [];
 
@@ -181,26 +207,22 @@ export class BoardModel extends ObservableModel {
         }
       }
     }
+    return matrix;
+  }
+
+  _getPath(from, to) {
+    const { row: fromRow, col: fromCol } = from;
+    const { row: toRow, col: toCol } = to;
+
+    const matrix = this._getMatrix()
+    var PF = require('pathfinding');
+
     let grid = new PF.Grid(matrix);
     let finder = new PF.AStarFinder();
     let path = finder.findPath(fromRow, fromCol, toRow, toCol, grid);
-    console.warn(path);
-    if (path.length > 0) {
-      let i = 0;
-      const ball = from.removeBall();
 
-      // const interval = setInterval(() => {
-      //   const cell = this.cells2D[path[i][0]][path[i][1]];
-      //   console.warn(cell);
-      //   cell.addBall(ball.type);
-      //   i++;
-      //   if (i >= path.length) {
-      //     cell.ball = ball;
-      //     clearInterval(interval);
-      //   }
-      // }, 100);
-    }
-    if (path.length === 0) {
-    }
+    return path;
   }
+
+
 }

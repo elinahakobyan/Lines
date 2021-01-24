@@ -1,11 +1,16 @@
 import { GameModel } from './game-model';
 import { ObservableModel } from './observable-model';
+import { ScoreBoxModel } from './score-box-model';
+
+
 
 class Store extends ObservableModel {
   constructor() {
     super('Store');
 
     this._game = null;
+    this._scoreBox = null;
+
 
     this.makeObservable();
   }
@@ -14,9 +19,18 @@ class Store extends ObservableModel {
     return this._game;
   }
 
+  get scoreBox() {
+    return this._scoreBox;
+  }
+
   initializeGameModel() {
     this._game = new GameModel();
     this._game.initialize();
+  }
+
+  initializeScoreBoxModel() {
+    this._scoreBox = new ScoreBoxModel();
+    this._scoreBox.initialize();
   }
 
   destroyGameModel() {

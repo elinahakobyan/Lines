@@ -3,8 +3,11 @@ import { CellAlign, CellScale, PixiGrid } from '@armathai/pixi-grid';
 import { mainGridConfig } from '../configs/main-grid-config';
 import { ModelEvents } from '../events/model-events';
 import { ViewEvents } from '../events/view-events';
+import { ScoreBoxModel } from '../models/score-box-model';
 import { BoardView } from './board-view';
 import { GameView } from './game-view';
+import { ScoreBoxView } from './score-box-view';
+
 
 export class MainView extends PixiGrid {
   getGridConfig() {
@@ -15,7 +18,10 @@ export class MainView extends PixiGrid {
     super();
 
     lego.event.on(ModelEvents.Store.GameUpdate, this._onGameUpdate, this);
+    lego.event.on(ModelEvents.Store.ScoreBoxUpdate, this._onScoreBoxUpdate, this);
     lego.event.on(ViewEvents.BoardView.CreateBoard, this.rebuild, this);
+    lego.event.on(ViewEvents.ScoreBoxView.CreateBg, this.rebuild, this);
+
   }
 
   rebuild() {
@@ -31,7 +37,27 @@ export class MainView extends PixiGrid {
     this.setChild('board', this._gameView);
   }
 
+  _onScoreBoxUpdate(scoreBoxModel) {
+    scoreBoxModel ? this._buildScoreBoxView(scoreBoxModel) : this._destroyScoreBoxeView();
+  }
+
+  _buildScoreBoxView(scoreBoxModel) {
+    this._scoreBoxView = new ScoreBoxView(scoreBoxModel);
+    this.setChild('scoreBox', this._scoreBoxView);
+    this._buildScoreText()
+  }
+
+  _buildScoreText() {
+    console.warn(this._scoreBoxView.bgView);
+    // const scorText = this._scoreBoxView.bgView.text
+    // this.setChild('scoreText', scorText);
+  }
+
   _destroyGameView() {
     this._gameView.destroy({ children: true });
+  }
+
+  _destroyScoreBoxeView() {
+    this._scoreBoxView.destroy({ children: true });
   }
 }
