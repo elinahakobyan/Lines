@@ -1,5 +1,6 @@
 import { ObservableModel } from './observable-model';
 import { BoardModel } from './board-model';
+import { boardConfig } from '../configs/board-config';
 
 export class GameModel extends ObservableModel {
   constructor() {
@@ -15,7 +16,9 @@ export class GameModel extends ObservableModel {
   }
 
   initialize() {
-    this._board = new BoardModel();
+    const config = boardConfig;
+
+    this._board = new BoardModel(config);
     this._board.initialize();
   }
 }

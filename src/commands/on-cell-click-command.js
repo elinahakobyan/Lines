@@ -3,7 +3,6 @@ import { cellEmptyGuard } from '../guards/cell-empty-guard';
 import { selectedCellGuard } from '../guards/selected-cell-guard';
 import { store } from '../models/store';
 import { deselectSelectedCellCommand } from './deselect-selected-cell-command';
-import { generateNewBallsSetCommand } from './generate-new-balls-set-command';
 import { moveBall, moveBallCommand } from './move-ball-command';
 import { selectCellCommand } from './select-cell-command';
 import { checkMatchCommand } from './check-match-command';

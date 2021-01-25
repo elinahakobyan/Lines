@@ -1,8 +1,7 @@
+import { boardConfig } from '../configs/board-config';
 import { GameModel } from './game-model';
 import { ObservableModel } from './observable-model';
 import { ScoreBoxModel } from './score-box-model';
-
-
 
 class Store extends ObservableModel {
   constructor() {
@@ -10,7 +9,6 @@ class Store extends ObservableModel {
 
     this._game = null;
     this._scoreBox = null;
-
 
     this.makeObservable();
   }

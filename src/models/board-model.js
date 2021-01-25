@@ -1,6 +1,6 @@
 import { CellModel } from './cell-model';
 import { ObservableModel } from './observable-model';
-import { BALLS, BoardDimension, EntryCellsCount } from '../constants';
+import { BALLS, BoardDimension, entryBallsCount } from '../constants';
 import sampleSize from 'lodash.samplesize';
 import { BallModel } from './ball-model';
 import sample from 'lodash.sample';
@@ -8,9 +8,9 @@ import { findHorizontal, findMainDiagonal, findSecondaryDiagonal, findVertical, 
 import chunk from 'lodash.chunk';
 
 export class BoardModel extends ObservableModel {
-  constructor() {
+  constructor(config) {
     super('BoardModel');
-
+    this.config = config;
     this._cells = null;
     this._combinations = [];
     this._score = 0;
@@ -55,17 +55,17 @@ export class BoardModel extends ObservableModel {
   }
 
   initialize() {
+    const { entryBallsCount } = this.config;
     this._initCells();
-    this.setBallsIntoCells(3);
+    this.setBallsIntoCells(entryBallsCount);
   }
 
   _initCells() {
     const cells = [];
-
-    const { size } = BoardDimension;
+    const { boardDimension } = this.config;
     const gap = 10;
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
+    for (let i = 0; i < boardDimension; i++) {
+      for (let j = 0; j < boardDimension; j++) {
         const cell = new CellModel(i, j);
         cells.push(cell);
       }
@@ -81,10 +81,10 @@ export class BoardModel extends ObservableModel {
   }
 
   _updateCombinations() {
-    const { size } = BoardDimension;
+    const { boardDimension } = this.config;
 
     this._combinations.length = 0;
-    this.cells2D = chunk(this._cells, size);
+    this.cells2D = chunk(this._cells, boardDimension);
     for (let i = 0; i < this.cells2D.length; i++) {
       for (let j = 0; j < this.cells2D[i].length; j++) {
         const cell = this.cells2D[i][j];
@@ -135,8 +135,8 @@ export class BoardModel extends ObservableModel {
   }
 
   _checkSecondaryDiagonalCombos() {
-    const { size } = BoardDimension;
-    this.cells2D = chunk(this._cells, size);
+    const { boardDimension } = this.config;
+    this.cells2D = chunk(this._cells, boardDimension);
 
     for (let i = 0; i < this.cells2D.length; i++) {
       for (let j = 0; j < this.cells2D[i].length; j++) {
@@ -164,8 +164,8 @@ export class BoardModel extends ObservableModel {
   }
 
   moveBall(from, to) {
-    const { size } = BoardDimension;
-    this.cells2D = chunk(this._cells, size);
+    const { boardDimension, spawnBallsCount } = this.config;
+    this.cells2D = chunk(this._cells, boardDimension);
 
     const path = this._getPath(from, to);
 
@@ -186,7 +186,7 @@ export class BoardModel extends ObservableModel {
           to.deleteBall();
           to.addBall(ball.type);
           clearInterval(interval);
-          this.setBallsIntoCells(3);
+          this.setBallsIntoCells(spawnBallsCount);
         }
       }, 100);
     }
@@ -196,14 +196,14 @@ export class BoardModel extends ObservableModel {
   }
 
   _getMatrix() {
-    const { size } = BoardDimension;
-    this.cells2D = chunk(this._cells, size);
+    const { boardDimension } = this.config;
+    this.cells2D = chunk(this._cells, boardDimension);
 
     const matrix = [];
 
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < boardDimension; i++) {
       matrix[i] = [];
-      for (let j = 0; j < size; j++) {
+      for (let j = 0; j < boardDimension; j++) {
         if (this.cells2D[j][i].ball) {
           matrix[i][j] = 1;
         } else {
@@ -228,5 +228,7 @@ export class BoardModel extends ObservableModel {
     return path;
   }
 
-  _checkForGameOver() {}
+  _checkForGameOver() {
+    d;
+  }
 }
