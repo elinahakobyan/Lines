@@ -17,6 +17,7 @@ export const ModelEvents = Object.freeze({
     BallUpdate: 'CellModelBallUpdate',
     IsEmptyUpdate: 'CellModelIsEmptyUpdate',
     IsSelectedUpdate: 'CellModelIsSelectedUpdate',
+    FakeBallUpdate: 'CellModelFakeBallUpdate',
   },
   GameModel: {
     BoardUpdate: 'GameModelBoardUpdate',

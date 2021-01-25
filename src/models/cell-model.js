@@ -11,6 +11,7 @@ export class CellModel extends ObservableModel {
     this._col = col;
     this._ball = null;
     this._isSelected = false;
+    this._fakeBall = null;
     this.makeObservable();
   }
 
@@ -32,6 +33,18 @@ export class CellModel extends ObservableModel {
 
   get isSelected() {
     return this._isSelected;
+  }
+
+  get fakeBall() {
+    return this._fakeBall;
+  }
+
+  setBall(type) {
+    this._fakeBall = type;
+  }
+
+  deleteBall() {
+    this._fakeBall = null;
   }
 
   select() {

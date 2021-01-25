@@ -8,7 +8,6 @@ import { BoardView } from './board-view';
 import { GameView } from './game-view';
 import { ScoreBoxView } from './score-box-view';
 
-
 export class MainView extends PixiGrid {
   getGridConfig() {
     return mainGridConfig();
@@ -21,7 +20,6 @@ export class MainView extends PixiGrid {
     lego.event.on(ModelEvents.Store.ScoreBoxUpdate, this._onScoreBoxUpdate, this);
     lego.event.on(ViewEvents.BoardView.CreateBoard, this.rebuild, this);
     lego.event.on(ViewEvents.ScoreBoxView.CreateBg, this.rebuild, this);
-
   }
 
   rebuild() {
@@ -43,14 +41,7 @@ export class MainView extends PixiGrid {
 
   _buildScoreBoxView(scoreBoxModel) {
     this._scoreBoxView = new ScoreBoxView(scoreBoxModel);
-    this.setChild('scoreBox', this._scoreBoxView);
-    this._buildScoreText()
-  }
-
-  _buildScoreText() {
-    console.warn(this._scoreBoxView.bgView);
-    // const scorText = this._scoreBoxView.bgView.text
-    // this.setChild('scoreText', scorText);
+    this.setChild('scoreText', this._scoreBoxView);
   }
 
   _destroyGameView() {

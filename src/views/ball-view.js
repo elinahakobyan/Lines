@@ -1,7 +1,7 @@
 export class BallView extends PIXI.Graphics {
-  constructor(ballModel) {
+  constructor(type) {
     super();
-    this.beginFill(ballModel.type);
+    this.beginFill(type);
     this.drawCircle(0, 0, 40);
     this.endFill();
   }

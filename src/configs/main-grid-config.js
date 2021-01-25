@@ -7,7 +7,9 @@ function LP(l, p) {
 export function mainGridConfig() {
   return LP(
     {
-
+      // debug: {
+      //   color: 0xff0000,
+      // },
       name: 'main',
       bounds: { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight },
       cells: [
@@ -22,23 +24,16 @@ export function mainGridConfig() {
           // },
         },
         {
-          name: 'scoreBox',
-          bounds: { x: 0.3, y: 0.05, width: 0.4, height: 0.1 },
-          scale: CellScale.fill,
-
-        },
-        {
           name: 'scoreText',
           bounds: { x: 0.3, y: 0.06, width: 0.1, height: 0.04 },
-          scale: CellScale.fill,
-
-        }
+          // align: CellAlign.center,
+        },
       ],
     },
     {
-      // debug: {
-      //   color: 0xff0000,
-      // },
+      debug: {
+        color: 0xff0000,
+      },
       name: 'main',
       bounds: { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight },
       cells: [
@@ -56,7 +51,7 @@ export function mainGridConfig() {
           name: 'scoreBox',
           bounds: { x: 0.3, y: 0.05, width: 0.4, height: 0.1 },
           scale: CellScale.fill,
-        }
+        },
       ],
     }
   );

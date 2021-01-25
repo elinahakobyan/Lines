@@ -51,7 +51,7 @@ export class BoardModel extends ObservableModel {
     emptyCells.forEach((cell) => {
       cell.addBall(sample(BALLS));
     });
-    this.checkMatch()
+    this.checkMatch();
   }
 
   initialize() {
@@ -81,7 +81,6 @@ export class BoardModel extends ObservableModel {
   }
 
   _updateCombinations() {
-
     const { size } = BoardDimension;
 
     this._combinations.length = 0;
@@ -168,21 +167,26 @@ export class BoardModel extends ObservableModel {
     const { size } = BoardDimension;
     this.cells2D = chunk(this._cells, size);
 
-    const path = this._getPath(from, to)
+    const path = this._getPath(from, to);
 
     if (path.length > 0) {
-      let i = 0;
+      let i = 1;
       const ball = from.removeBall();
 
       const interval = setInterval(() => {
         const cell = this.cells2D[path[i][0]][path[i][1]];
-        cell.addBall(ball.type);
-        cell.removeBall()
+        if ([path[i - 1]]) {
+          const prevcell = this.cells2D[path[i - 1][0]][path[i - 1][1]];
+          prevcell.deleteBall();
+        }
+        cell.setBall(ball.type);
+
         i++;
         if (i >= path.length) {
+          to.deleteBall();
           to.addBall(ball.type);
           clearInterval(interval);
-          this.setBallsIntoCells(3)
+          this.setBallsIntoCells(3);
         }
       }, 100);
     }
@@ -214,7 +218,7 @@ export class BoardModel extends ObservableModel {
     const { row: fromRow, col: fromCol } = from;
     const { row: toRow, col: toCol } = to;
 
-    const matrix = this._getMatrix()
+    const matrix = this._getMatrix();
     var PF = require('pathfinding');
 
     let grid = new PF.Grid(matrix);
@@ -224,5 +228,5 @@ export class BoardModel extends ObservableModel {
     return path;
   }
 
-
+  _checkForGameOver() {}
 }
