@@ -1,7 +1,6 @@
 import { boardConfig } from '../configs/board-config';
 import { GameModel } from './game-model';
 import { ObservableModel } from './observable-model';
-import { ScoreBoxModel } from './score-box-model';
 
 class Store extends ObservableModel {
   constructor() {
@@ -24,16 +23,6 @@ class Store extends ObservableModel {
   initializeGameModel() {
     this._game = new GameModel();
     this._game.initialize();
-  }
-
-  initializeScoreBoxModel() {
-    this._scoreBox = new ScoreBoxModel();
-    this._scoreBox.initialize();
-  }
-
-  destroyGameModel() {
-    this._game.destroy();
-    this._game = null;
   }
 }
 

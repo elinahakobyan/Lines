@@ -17,9 +17,7 @@ export class MainView extends PixiGrid {
     super();
 
     lego.event.on(ModelEvents.Store.GameUpdate, this._onGameUpdate, this);
-    lego.event.on(ModelEvents.Store.ScoreBoxUpdate, this._onScoreBoxUpdate, this);
     lego.event.on(ViewEvents.BoardView.CreateBoard, this.rebuild, this);
-    lego.event.on(ViewEvents.ScoreBoxView.CreateBg, this.rebuild, this);
   }
 
   rebuild() {
@@ -32,23 +30,14 @@ export class MainView extends PixiGrid {
 
   _buildGameView(gameModel) {
     this._gameView = new GameView(gameModel);
-    this.setChild('board', this._gameView);
+    this.setChild('main', this._gameView);
   }
 
   _onScoreBoxUpdate(scoreBoxModel) {
     scoreBoxModel ? this._buildScoreBoxView(scoreBoxModel) : this._destroyScoreBoxeView();
   }
 
-  _buildScoreBoxView(scoreBoxModel) {
-    this._scoreBoxView = new ScoreBoxView(scoreBoxModel);
-    this.setChild('scoreText', this._scoreBoxView);
-  }
-
   _destroyGameView() {
     this._gameView.destroy({ children: true });
-  }
-
-  _destroyScoreBoxeView() {
-    this._scoreBoxView.destroy({ children: true });
   }
 }

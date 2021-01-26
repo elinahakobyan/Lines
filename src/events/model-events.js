@@ -2,14 +2,12 @@ export const ModelEvents = Object.freeze({
   BallModel: {
     TypeUpdate: 'BallModelTypeUpdate',
   },
-  BgModel: {
-    TextUpdate: 'BgModelTextUpdate',
-  },
   BoardModel: {
     CellsUpdate: 'BoardModelCellsUpdate',
     ActiveCellUpdate: 'BoardModelActiveCellUpdate',
     SelectedCellUpdate: 'BoardModelSelectedCellUpdate',
     ScoreUpdate: 'BoardModelScoreUpdate',
+    GameOverUpdate: 'BoardModelGameOverUpdate',
   },
   CellModel: {
     RowUpdate: 'CellModelRowUpdate',
@@ -21,12 +19,13 @@ export const ModelEvents = Object.freeze({
   },
   GameModel: {
     BoardUpdate: 'GameModelBoardUpdate',
+    ScoreBoxUpdate: 'GameModelScoreBoxUpdate',
   },
   ObservableModel: {
     UuidUpdate: 'ObservableModelUuidUpdate',
   },
   ScoreBoxModel: {
-    BgUpdate: 'ScoreBoxModelBgUpdate',
+    TextUpdate: 'ScoreBoxModelTextUpdate',
   },
   Store: {
     GameUpdate: 'StoreGameUpdate',

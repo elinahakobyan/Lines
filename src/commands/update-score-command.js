@@ -1,6 +1,6 @@
 import { store } from '../models/store';
 
 export function updateScoreCommand(value) {
-  store.scoreBox.bg.deleteText();
-  store.scoreBox.bg.addText(value);
+  store.game.scoreBox.deleteText();
+  store.game.scoreBox.addText(value);
 }

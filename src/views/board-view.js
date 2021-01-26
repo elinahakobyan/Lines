@@ -4,6 +4,7 @@ import { ViewEvents } from '../events/view-events';
 import { CellView } from './cell-view';
 import chunk from 'lodash.chunk';
 import { boardConfig } from '../configs/board-config';
+import { gameOverView } from './game-over-view';
 
 export class BoardView extends PIXI.Container {
   constructor() {

@@ -9,8 +9,4 @@ export const ViewEvents = Object.freeze({
   CellView: {
     OnClick: 'CellViewOnClick',
   },
-  ScoreBoxView: {
-    CreateBg: 'ScoreBoxViewCreateBg',
-  },
-
 });

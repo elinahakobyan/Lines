@@ -14,6 +14,7 @@ export class BoardModel extends ObservableModel {
     this._cells = null;
     this._combinations = [];
     this._score = 0;
+    this._gameOver = false;
     this.makeObservable();
   }
 
@@ -31,6 +32,10 @@ export class BoardModel extends ObservableModel {
 
   get score() {
     return this._score;
+  }
+
+  get gameOver() {
+    return this._gameOver;
   }
 
   getEmptyCells(count) {
@@ -78,6 +83,7 @@ export class BoardModel extends ObservableModel {
     if (this._combinations.length) {
       this._destroyBalls();
     }
+    this.checkForGameOver();
   }
 
   _updateCombinations() {
@@ -186,12 +192,12 @@ export class BoardModel extends ObservableModel {
           to.deleteBall();
           to.addBall(ball.type);
           clearInterval(interval);
+          this.checkForGameOver();
           this.setBallsIntoCells(spawnBallsCount);
         }
       }, 100);
     }
     if (path.length === 0) {
-      //
     }
   }
 
@@ -219,6 +225,7 @@ export class BoardModel extends ObservableModel {
     const { row: toRow, col: toCol } = to;
 
     const matrix = this._getMatrix();
+
     var PF = require('pathfinding');
 
     let grid = new PF.Grid(matrix);
@@ -228,7 +235,13 @@ export class BoardModel extends ObservableModel {
     return path;
   }
 
-  _checkForGameOver() {
-    d;
+  checkForGameOver() {
+    if (
+      this.cells.filter((cell) => {
+        cell.isEmpty;
+      }).length === 0
+    ) {
+      this._gameOver = true;
+    }
   }
 }

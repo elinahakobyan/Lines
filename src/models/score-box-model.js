@@ -1,24 +1,32 @@
-import { lego } from "@armathai/lego";
-import { ModelEvents } from "../events/model-events";
-import { ObservableModel } from "./observable-model";
-import { BgModel } from './bg-model';
-
+import { lego } from '@armathai/lego';
+import { ObservableModel } from './observable-model';
+import { TextModel } from './text-model';
 
 export class ScoreBoxModel extends ObservableModel {
-    constructor() {
-        super('ScoreBoxModel');
-        this._bg = null;
-        this.makeObservable()
-        lego.event.on()
-    }
+  constructor() {
+    super('ScoreBoxModel');
+    this._text = null;
+    this.makeObservable();
+  }
 
-    get bg() {
-        return this._bg;
-    }
+  get text() {
+    return this._text;
+  }
 
-    initialize() {
-        this._bg = new BgModel()
-        this._bg.addText();
+  addText(value) {
+    if (value === undefined) {
+      this._text = new TextModel(0);
+    } else {
+      this._text = new TextModel(value);
     }
+    this._text.initialize();
+  }
 
+  deleteText() {
+    this._text = null;
+  }
+
+  initialize() {
+    //
+  }
 }

@@ -5,10 +5,9 @@ import { onloadCompleateCommand } from './load-compleate-command';
 import { onCellClickCommand } from './on-cell-click-command';
 import { updateScoreCommand } from './update-score-command';
 
-
 export function startupCommand() {
   lego.command
     .on(ViewEvents.Game.LoadComplete, onloadCompleateCommand)
     .on(ViewEvents.BoardView.CellClick, onCellClickCommand)
-    .on(ModelEvents.BoardModel.ScoreUpdate, updateScoreCommand)
+    .on(ModelEvents.BoardModel.ScoreUpdate, updateScoreCommand);
 }
