@@ -6,15 +6,15 @@ import { ViewEvents } from '../events/view-events';
 import { GameView } from './game-view';
 
 export class MainView extends PixiGrid {
-  getGridConfig() {
-    return mainGridConfig();
-  }
-
   constructor() {
     super();
 
     lego.event.on(ModelEvents.Store.GameUpdate, this._onGameUpdate, this);
     lego.event.on(ViewEvents.BoardView.CreateBoard, this.rebuild, this);
+  }
+
+  getGridConfig() {
+    return mainGridConfig();
   }
 
   destroy(options) {

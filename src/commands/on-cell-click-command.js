@@ -8,6 +8,7 @@ import { selectCellCommand } from './select-cell-command';
 import { checkMatchCommand } from './check-match-command';
 import { movmentCommand } from './movment-command';
 import { checkGameOverCommand } from './check-game-over-command';
+import { setNextBallsIntoCellsCommand } from './set-next-balls-into-cells-command';
 
 export function onCellClickCommand(cellUuid) {
   const cell = store.game.board.getCellByUuid(cellUuid);

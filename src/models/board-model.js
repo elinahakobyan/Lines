@@ -2,10 +2,10 @@ import { CellModel } from './cell-model';
 import { ObservableModel } from './observable-model';
 import { BALLS, BoardDimension, entryBallsCount } from '../constants';
 import sampleSize from 'lodash.samplesize';
-import { BallModel } from './ball-model';
 import sample from 'lodash.sample';
 import { findHorizontal, findMainDiagonal, findSecondaryDiagonal, findVertical, contains } from '../utils';
 import chunk from 'lodash.chunk';
+import { store } from './store';
 
 export class BoardModel extends ObservableModel {
   constructor(config) {
@@ -15,11 +15,16 @@ export class BoardModel extends ObservableModel {
     this._combinations = [];
     this._score = 0;
     this._gameOver = false;
+    this._nextBalls = false;
     this.makeObservable();
   }
 
   get cells() {
     return this._cells;
+  }
+
+  get gameOver() {
+    return this._gameOver;
   }
 
   get activeCell() {
@@ -34,8 +39,8 @@ export class BoardModel extends ObservableModel {
     return this._score;
   }
 
-  get gameOver() {
-    return this._gameOver;
+  get nextBalls() {
+    return this._nextBalls;
   }
 
   getEmptyCells(count) {
@@ -55,6 +60,15 @@ export class BoardModel extends ObservableModel {
     const emptyCells = this.getEmptyCells(count);
     emptyCells.forEach((cell) => {
       cell.addBall(sample(BALLS));
+    });
+    this.checkMatch();
+  }
+
+  setNextBallsIntoCells(balls) {
+    const emptyCells = this.getEmptyCells(balls.length);
+    emptyCells.forEach((cell, index) => {
+      cell.addBall(balls[index]);
+      this._nextBalls = !this._nextBalls;
     });
     this.checkMatch();
   }
@@ -169,7 +183,7 @@ export class BoardModel extends ObservableModel {
     });
   }
 
-  moveBall(from, to) {
+  moveBall(from, to, resolve) {
     const { boardDimension, spawnBallsCount } = this.config;
     this.cells2D = chunk(this._cells, boardDimension);
 
@@ -193,7 +207,7 @@ export class BoardModel extends ObservableModel {
           to.addBall(ball.type);
           clearInterval(interval);
           this.checkForGameOver();
-          this.setBallsIntoCells(spawnBallsCount);
+          resolve();
         }
       }, 100);
     }

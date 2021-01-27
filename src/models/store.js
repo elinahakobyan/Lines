@@ -25,7 +25,7 @@ class Store extends ObservableModel {
     this._game.initialize();
   }
 
-  destroyGame() {
+  destroyGameModel() {
     this._game = null;
   }
 }

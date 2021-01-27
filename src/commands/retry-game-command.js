@@ -3,6 +3,6 @@ import { store } from '../models/store';
 import { initializeGameModelCommand } from './initialize-game-model-command';
 
 export function retryGameCommand() {
-  store.destroyGame();
+  store.destroyGameModel();
   lego.command.execute(initializeGameModelCommand);
 }
