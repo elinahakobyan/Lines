@@ -2,7 +2,6 @@ import { lego } from '@armathai/lego';
 import { PixiGrid } from '@armathai/pixi-grid';
 import { scoreBoxGridConfig } from '../configs/score-box-grid-config';
 import { ModelEvents } from '../events/model-events';
-import { ViewEvents } from '../events/view-events';
 
 import { TextView } from './text-view';
 
@@ -15,6 +14,12 @@ export class ScoreBoxView extends PixiGrid {
     super();
     this._text = null;
     lego.event.on(ModelEvents.ScoreBoxModel.TextUpdate, this._onTextUpdate, this);
+  }
+
+  destroy(options) {
+    lego.event.off(ModelEvents.ScoreBoxModel.TextUpdate, this._onTextUpdate, this);
+
+    super.destroy(options);
   }
 
   rebuild() {

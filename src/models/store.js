@@ -24,6 +24,10 @@ class Store extends ObservableModel {
     this._game = new GameModel();
     this._game.initialize();
   }
+
+  destroyGame() {
+    this._game = null;
+  }
 }
 
 export const store = new Store();

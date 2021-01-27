@@ -1,6 +1,7 @@
 export const ViewEvents = Object.freeze({
   Game: {
     LoadComplete: 'GameLoadComplete',
+    RetryClick: 'Game',
   },
   BoardView: {
     CreateBoard: 'BoardViewCreateBoard',
@@ -8,5 +9,11 @@ export const ViewEvents = Object.freeze({
   },
   CellView: {
     OnClick: 'CellViewOnClick',
+  },
+  GameOverView: {
+    OnClick: 'GameOverViewOnClick',
+  },
+  GameView: {
+    RetryClick: 'GameViewRetryClick',
   },
 });

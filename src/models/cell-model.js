@@ -1,5 +1,3 @@
-import { lego } from '@armathai/lego';
-import { ViewEvents } from '../events/view-events';
 import { BallModel } from './ball-model';
 import { ObservableModel } from './observable-model';
 

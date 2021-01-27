@@ -4,7 +4,6 @@ import { ViewEvents } from '../events/view-events';
 import { CellView } from './cell-view';
 import chunk from 'lodash.chunk';
 import { boardConfig } from '../configs/board-config';
-import { gameOverView } from './game-over-view';
 
 export class BoardView extends PIXI.Container {
   constructor() {
@@ -13,6 +12,13 @@ export class BoardView extends PIXI.Container {
     this._cells = [];
     lego.event.on(ModelEvents.BoardModel.CellsUpdate, this._onCellsUpdate, this);
     lego.event.on(ModelEvents.CellModel.IsSelectedUpdate, this._onSelectedUpdate, this);
+  }
+
+  destroy(options) {
+    lego.event.off(ModelEvents.BoardModel.CellsUpdate, this._onCellsUpdate, this);
+    lego.event.off(ModelEvents.CellModel.IsSelectedUpdate, this._onSelectedUpdate, this);
+
+    super.destroy(options);
   }
 
   getCellByUuid(uuid) {

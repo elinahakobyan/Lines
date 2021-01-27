@@ -34,6 +34,13 @@ export class CellView extends PIXI.Container {
     return this._uuid;
   }
 
+  destroy(options) {
+    lego.event.off(ModelEvents.CellModel.BallUpdate, this._onBallUpdate, this);
+    lego.event.off(ModelEvents.CellModel.FakeBallUpdate, this._onFakeBallUpdate, this);
+
+    super.destroy(options);
+  }
+
   select() {
     this._ball.activate();
   }

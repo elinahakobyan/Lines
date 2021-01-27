@@ -236,11 +236,9 @@ export class BoardModel extends ObservableModel {
   }
 
   checkForGameOver() {
-    if (
-      this.cells.filter((cell) => {
-        cell.isEmpty;
-      }).length === 0
-    ) {
+    const cells = this.cells.filter((cell) => cell.isEmpty);
+    // console.warn(cells);
+    if (cells.length === 0) {
       this._gameOver = true;
     }
   }

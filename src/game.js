@@ -1,7 +1,6 @@
 import { lego } from '@armathai/lego';
 import { legologger } from '@armathai/lego-logger';
 import * as PIXI from 'pixi.js';
-import { startupCommand } from './commands/startupCommand';
 import { ViewEvents } from './events/view-events';
 import { MainView } from './views/main-view';
 

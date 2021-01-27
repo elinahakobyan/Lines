@@ -8,10 +8,6 @@ import { gameOverView } from './game-over-view';
 import { ScoreBoxView } from './score-box-view';
 
 export class GameView extends PixiGrid {
-  getGridConfig() {
-    return gameGridConfig();
-  }
-
   constructor() {
     super();
     lego.event.on(ModelEvents.GameModel.BoardUpdate, this._onBoardUpdate, this);
@@ -19,9 +15,21 @@ export class GameView extends PixiGrid {
     lego.event.on(ModelEvents.BoardModel.GameOverUpdate, this._onGameOverUpdate, this);
   }
 
-  // rebuild() {
-  //   super.rebuild(this.getGridConfig());
-  // }
+  getGridConfig() {
+    return gameGridConfig();
+  }
+
+  destroy(options) {
+    lego.event.off(ModelEvents.GameModel.BoardUpdate, this._onBoardUpdate, this);
+    lego.event.off(ModelEvents.GameModel.ScoreBoxUpdate, this._onScoreBoxUpdate, this);
+    lego.event.off(ModelEvents.BoardModel.GameOverUpdate, this._onGameOverUpdate, this);
+
+    super.destroy(options);
+  }
+
+  rebuild(config = this.getGridConfig()) {
+    super.rebuild(config);
+  }
 
   _onBoardUpdate(boardModel) {
     boardModel ? this._buildBoardView(boardModel) : this._destroyBoardView();
@@ -33,6 +41,7 @@ export class GameView extends PixiGrid {
 
   _buildBoardView(boardModel) {
     this._boardView = new BoardView(boardModel);
+    console.warn(this._boardView);
     this.setChild('board', this._boardView);
   }
 
@@ -54,14 +63,17 @@ export class GameView extends PixiGrid {
 
   _createGameOverView(newvalue) {
     this._gameOver = new gameOverView();
-    this._gameOver.position.set(390, 280);
-
-    this.addChild(this._gameOver);
+    this._gameOver.on(ViewEvents.GameOverView.OnClick, this._onRetryClick, this);
+    this.setChild('gameOver', this._gameOver);
   }
 
   _destroyeGameOverView() {
     this.removeChild(this._gameOver);
     this._gameOver = null;
     return this._gameOver;
+  }
+
+  _onRetryClick() {
+    lego.event.emit(ViewEvents.GameView.RetryClick);
   }
 }
