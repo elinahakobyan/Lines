@@ -16,4 +16,7 @@ export const ViewEvents = Object.freeze({
   GameView: {
     RetryClick: 'GameViewRetryClick',
   },
+  ScoreBoxView: {
+    CreateScoreBox: 'ScoreBoxCreateScoreBox',
+  },
 });

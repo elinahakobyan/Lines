@@ -17,7 +17,7 @@ export function gameGridConfig() {
           //   color: 0x00ff00,
           // },
           name: 'board',
-          bounds: { x: 0.25, y: 0.15, width: 0.5, height: 0.7 },
+          bounds: { x: 0.3, y: 0.15, width: 0.4, height: 0.7 },
           align: CellAlign.centerTop,
           scale: CellScale.showAll,
           // padding: 0.1,
@@ -28,7 +28,7 @@ export function gameGridConfig() {
         },
         {
           name: 'scoreBox',
-          bounds: { x: 0.3, y: 0.06, width: 0.2, height: 0.09 },
+          bounds: { x: 0.3, y: 0.05, width: 0.18, height: 0.08 },
           // align: CellAlign.centerTop,
           // padding: 0.1,
           // debug: {
@@ -38,18 +38,18 @@ export function gameGridConfig() {
         },
         {
           name: 'gameOver',
-          bounds: { x: 0.3, y: 0.25, width: 0.4, height: 0.5 },
+          bounds: { x: 0.3, y: 0.25, width: 0.4, height: 0.45 },
           // align: CellAlign.centerTop,
           // padding: 0.1,
-          //   debug: {
-          //     color: 0x0000ff,
-          //     fill: true,
-          //   },
+          // debug: {
+          //   color: 0x0000ff,
+          //   fill: true,
+          // },
         },
         {
           name: 'nextBalls',
-          bounds: { x: 0.5, y: 0.05, width: 0.2, height: 0.08 },
-          // align: CellAlign.centerTop,
+          bounds: { x: 0.52, y: 0.05, width: 0.18, height: 0.08 },
+          align: CellAlign.leftCenter,
           // padding: 0.1,
           // debug: {
           //   color: 0x000000,
@@ -77,23 +77,23 @@ export function gameGridConfig() {
         },
         {
           name: 'scoreBox',
-          bounds: { x: 0.3, y: 0.06, width: 0.4, height: 0.09 },
-          align: CellAlign.centerTop,
+          bounds: { x: 0.3, y: 0.05, width: 0.18, height: 0.08 },
+          // align: CellAlign.centerTop,
           // padding: 0.1,
-          //   debug: {
-          //     color: 0x0000ff,
-          //     fill: true,
-          //   },
+          // debug: {
+          //   color: 0x0000ff,
+          //   fill: true,
+          // },
         },
         {
           name: 'gameOver',
-          bounds: { x: 0.3, y: 0.25, width: 0.4, height: 0.5 },
+          bounds: { x: 0.3, y: 0.25, width: 0.4, height: 0.45 },
           // align: CellAlign.centerTop,
           // padding: 0.1,
-          //   debug: {
-          //     color: 0x0000ff,
-          //     fill: true,
-          //   },
+          // debug: {
+          //   color: 0x0000ff,
+          //   fill: true,
+          // },
         },
         {
           name: 'nextBalls',

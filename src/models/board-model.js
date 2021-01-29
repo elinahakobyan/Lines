@@ -1,11 +1,10 @@
 import { CellModel } from './cell-model';
 import { ObservableModel } from './observable-model';
-import { BALLS, BoardDimension, entryBallsCount } from '../constants';
+import { BALLS, BoardDimension, BoardState, entryBallsCount } from '../constants';
 import sampleSize from 'lodash.samplesize';
 import sample from 'lodash.sample';
 import { findHorizontal, findMainDiagonal, findSecondaryDiagonal, findVertical, contains } from '../utils';
 import chunk from 'lodash.chunk';
-import { store } from './store';
 
 export class BoardModel extends ObservableModel {
   constructor(config) {
@@ -16,11 +15,16 @@ export class BoardModel extends ObservableModel {
     this._score = 0;
     this._gameOver = false;
     this._nextBalls = false;
+    this._state = BoardState.Idle;
     this.makeObservable();
   }
 
   get cells() {
     return this._cells;
+  }
+
+  get state() {
+    return this._state;
   }
 
   get gameOver() {
@@ -58,18 +62,22 @@ export class BoardModel extends ObservableModel {
 
   setBallsIntoCells(count) {
     const emptyCells = this.getEmptyCells(count);
+    this._state = BoardState.GenerateNewBalls;
     emptyCells.forEach((cell) => {
       cell.addBall(sample(BALLS));
     });
+    this._state = BoardState.Idle;
     this.checkMatch();
   }
 
   setNextBallsIntoCells(balls) {
     const emptyCells = this.getEmptyCells(balls.length);
+    this._state = BoardState.GenerateNewBalls;
     emptyCells.forEach((cell, index) => {
       cell.addBall(balls[index]);
       this._nextBalls = !this._nextBalls;
     });
+    this._state = BoardState.Idle;
     this.checkMatch();
   }
 
@@ -95,8 +103,10 @@ export class BoardModel extends ObservableModel {
   checkMatch() {
     this._updateCombinations();
     if (this._combinations.length) {
+      this._state = BoardState.Match;
       this._destroyBalls();
     }
+    this._state = BoardState.Idle;
     this.checkForGameOver();
   }
 
@@ -186,6 +196,7 @@ export class BoardModel extends ObservableModel {
   moveBall(from, to, resolve) {
     const { boardDimension, spawnBallsCount } = this.config;
     this.cells2D = chunk(this._cells, boardDimension);
+    this._state = BoardState.Moving;
 
     const path = this._getPath(from, to);
 
@@ -212,6 +223,7 @@ export class BoardModel extends ObservableModel {
       }, 100);
     }
     if (path.length === 0) {
+      this._state = BoardState.Idle;
     }
   }
 
@@ -251,7 +263,6 @@ export class BoardModel extends ObservableModel {
 
   checkForGameOver() {
     const cells = this.cells.filter((cell) => cell.isEmpty);
-    // console.warn(cells);
     if (cells.length === 0) {
       this._gameOver = true;
     }

@@ -1,6 +1,4 @@
-import { lego } from '@armathai/lego';
 import { ObservableModel } from './observable-model';
-import { TextModel } from './text-model';
 
 export class ScoreBoxModel extends ObservableModel {
   constructor() {
@@ -14,16 +12,7 @@ export class ScoreBoxModel extends ObservableModel {
   }
 
   addText(value) {
-    if (value === undefined) {
-      this._text = new TextModel(0);
-    } else {
-      this._text = new TextModel(value);
-    }
-    this._text.initialize();
-  }
-
-  deleteText() {
-    this._text = null;
+    this._text = value;
   }
 
   initialize() {

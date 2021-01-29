@@ -14,35 +14,35 @@ export function gameOverGridConfig() {
       bounds: { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight },
       cells: [
         {
-          //   debug: {
-          //     color: 0xa6b0e8,
-          //   },
+          // debug: {
+          //   color: 0xa6b0e8,
+          // },
           name: 'bg',
           bounds: { x: 0, y: 0, width: 1, height: 1 },
           align: CellAlign.center,
         },
         {
-          //   debug: {
-          //     color: 0xa6b0e8,
-          //   },
+          // debug: {
+          //   color: 0x92f6ff,
+          // },
           name: 'text',
-          bounds: { x: 0.15, y: 0.2, width: 0.7, height: 0.3 },
+          bounds: { x: 0.15, y: 0.25, width: 0.7, height: 0.15 },
           align: CellAlign.center,
         },
         {
-          //   debug: {
-          //     color: 0xa6b0e8,
-          //   },
+          // debug: {
+          //   color: 0x3c3665,
+          // },
           name: 'retry',
-          bounds: { x: 0.15, y: 0.5, width: 0.7, height: 0.3 },
+          bounds: { x: 0.15, y: 0.6, width: 0.7, height: 0.15 },
           align: CellAlign.center,
         },
         {
-          //   debug: {
-          //     color: 0xa6b0e8,
-          //   },
+          // debug: {
+          //   color: 0x003448,
+          // },
           name: 'score',
-          bounds: { x: 0.15, y: 0.34, width: 0.7, height: 0.3 },
+          bounds: { x: 0.15, y: 0.43, width: 0.7, height: 0.15 },
           align: CellAlign.center,
         },
       ],
@@ -55,12 +55,36 @@ export function gameOverGridConfig() {
       bounds: { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight },
       cells: [
         {
-          debug: {
-            color: 0xa6b0e8,
-          },
-          name: 'scoreText',
-          bounds: { x: 0.3, y: 0.06, width: 0.1, height: 0.04 },
-          // align: CellAlign.center,
+          // debug: {
+          //   color: 0xa6b0e8,
+          // },
+          name: 'bg',
+          bounds: { x: 0, y: 0, width: 1, height: 1 },
+          align: CellAlign.center,
+        },
+        {
+          // debug: {
+          //   color: 0x92f6ff,
+          // },
+          name: 'text',
+          bounds: { x: 0.15, y: 0.25, width: 0.7, height: 0.15 },
+          align: CellAlign.center,
+        },
+        {
+          // debug: {
+          //   color: 0x3c3665,
+          // },
+          name: 'retry',
+          bounds: { x: 0.15, y: 0.6, width: 0.7, height: 0.15 },
+          align: CellAlign.center,
+        },
+        {
+          // debug: {
+          //   color: 0x003448,
+          // },
+          name: 'score',
+          bounds: { x: 0.15, y: 0.43, width: 0.7, height: 0.15 },
+          align: CellAlign.center,
         },
       ],
     }

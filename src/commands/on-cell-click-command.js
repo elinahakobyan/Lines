@@ -17,7 +17,6 @@ export function onCellClickCommand(cellUuid) {
     if (selectedCell) {
       lego.command.payload(selectedCell).execute(deselectSelectedCellCommand);
       lego.command.payload(selectedCell, cell).execute(moveBallCommand);
-      lego.command.execute(checkMatchCommand);
     }
   } else {
     if (selectedCell) {

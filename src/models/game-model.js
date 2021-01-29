@@ -34,6 +34,6 @@ export class GameModel extends ObservableModel {
     this._board = new BoardModel(config);
     this._board.initialize();
     this._scoreBox = new ScoreBoxModel();
-    this._scoreBox.addText();
+    this._scoreBox.addText(this._board.score);
   }
 }

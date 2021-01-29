@@ -2,17 +2,12 @@ import { lego } from '@armathai/lego';
 import { PixiGrid } from '@armathai/pixi-grid';
 import { scoreBoxGridConfig } from '../configs/score-box-grid-config';
 import { ModelEvents } from '../events/model-events';
-
-import { TextView } from './text-view';
+import { ViewEvents } from '../events/view-events';
 
 export class ScoreBoxView extends PixiGrid {
-  getGridConfig() {
-    return scoreBoxGridConfig();
-  }
-
-  constructor() {
+  constructor(scoreBoxModel) {
     super();
-    this._text = null;
+    this._build();
     lego.event.on(ModelEvents.ScoreBoxModel.TextUpdate, this._onTextUpdate, this);
   }
 
@@ -22,28 +17,27 @@ export class ScoreBoxView extends PixiGrid {
     super.destroy(options);
   }
 
-  rebuild() {
-    super.rebuild(this.getGridConfig());
+  getGridConfig() {
+    return scoreBoxGridConfig();
   }
 
-  get name() {
-    return 'ScoreBoxView';
+  rebuild(config = this.getGridConfig()) {
+    super.rebuild(config);
   }
 
-  get text() {
-    return this._text;
+  _onTextUpdate(value) {
+    this._text.text = `Score : ${value}`;
+    this.rebuild();
   }
 
-  _onTextUpdate(textModel) {
-    textModel ? this._buildTextView(textModel) : this._destroyTextView();
-  }
-
-  _buildTextView(textModel) {
-    this._text = new TextView(textModel.type);
+  _build() {
+    const style = new PIXI.TextStyle({
+      fontFamily: 'Arial',
+      fontSize: 60,
+      fill: 0xa6b0e8,
+      align: 'center',
+    });
+    this._text = new PIXI.Text('Score : 0', style);
     this.setChild('scoreText', this._text);
-  }
-
-  _destroyTextView() {
-    this._text.destroy({ children: true });
   }
 }

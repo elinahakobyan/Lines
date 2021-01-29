@@ -10,10 +10,10 @@ export class CellView extends PIXI.Container {
     this._col = col;
     this._ball = null;
     this._uuid = uuid;
-    this.interactive = true;
     this._addEvent();
     lego.event.on(ModelEvents.CellModel.BallUpdate, this._onBallUpdate, this);
     lego.event.on(ModelEvents.CellModel.FakeBallUpdate, this._onFakeBallUpdate, this);
+    lego.event.on(ModelEvents.BoardModel.StateUpdate, this._onStateUpdate, this);
 
     this._buildBg();
   }
@@ -32,6 +32,14 @@ export class CellView extends PIXI.Container {
 
   get uuid() {
     return this._uuid;
+  }
+
+  _onStateUpdate(state) {
+    if (state === 'generateNewBalls' || state === 'match' || state === 'moving') {
+      this.interactive = false;
+    } else {
+      this.interactive = true;
+    }
   }
 
   destroy(options) {

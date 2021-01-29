@@ -52,11 +52,6 @@ export class GameView extends PixiGrid {
     this.setChild('scoreBox', this._scoreBoxView);
   }
 
-  _buildNextBallsView(scoreBoxModel) {
-    this._scoreBoxView = new ScoreBoxView(scoreBoxModel);
-    this.setChild('scoreBox', this._scoreBoxView);
-  }
-
   _destroyBoardView() {
     this._boardView.destroy();
   }
