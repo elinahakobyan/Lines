@@ -1,4 +1,4 @@
-import { CellAlign, CellScale } from '@armathai/pixi-grid';
+import { CellAlign } from '@armathai/pixi-grid';
 
 function LP(l, p) {
   return window.innerWidth > window.innerHeight ? l : p;
@@ -7,9 +7,9 @@ function LP(l, p) {
 export function gameOverGridConfig() {
   return LP(
     {
-      // debug: {
-      //   color: 0x000000,
-      // },
+      //   debug: {
+      //     color: 0x000000,
+      //   },
       name: 'main',
       bounds: { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight },
       cells: [
@@ -47,6 +47,7 @@ export function gameOverGridConfig() {
         },
       ],
     },
+
     {
       // debug: {
       //   color: 0xff0000,

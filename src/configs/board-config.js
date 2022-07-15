@@ -1,5 +1,5 @@
 export const boardConfig = {
-  boardDimension: 8,
+  boardDimension: 9,
   spawnBallsCount: 3,
   entryBallsCount: 5,
 };

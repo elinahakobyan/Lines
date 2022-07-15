@@ -1,7 +1,7 @@
 import { lego } from '@armathai/lego';
 import { ModelEvents } from '../events/model-events';
-import { BallView } from './ball-view';
 import { ViewEvents } from '../events/view-events';
+import { BallView } from './ball-view';
 
 export class CellView extends PIXI.Container {
   constructor(row, col, uuid) {
@@ -59,7 +59,7 @@ export class CellView extends PIXI.Container {
 
   _buildBg() {
     const gr = new PIXI.Graphics();
-    gr.beginFill(0xe8bacc);
+    gr.beginFill(0xc1c1c1);
     gr.drawRect(-50, -50, 100, 100);
     gr.endFill();
     this.addChild(gr);

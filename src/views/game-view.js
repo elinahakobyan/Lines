@@ -4,7 +4,7 @@ import { gameGridConfig } from '../configs/game-grid-config';
 import { ModelEvents } from '../events/model-events';
 import { ViewEvents } from '../events/view-events';
 import { BoardView } from './board-view';
-import { gameOverView } from './game-over-view';
+import { GameOverView } from './game-over-view';
 import { NextBallsView } from './next-balls-view';
 import { ScoreBoxView } from './score-box-view';
 
@@ -15,6 +15,7 @@ export class GameView extends PixiGrid {
     lego.event.on(ModelEvents.BoardModel.GameOverUpdate, this._onGameOverUpdate, this);
     lego.event.on(ModelEvents.GameModel.ScoreBoxUpdate, this._onScoreBoxUpdate, this);
     lego.event.on(ModelEvents.GameModel.NextBallsUpdate, this._onNextBallsUpdate, this);
+    lego.event.on(ModelEvents.ScoreBoxModel.TextUpdate, this._onTextUpdate, this);
   }
 
   getGridConfig() {
@@ -39,7 +40,7 @@ export class GameView extends PixiGrid {
   }
 
   _onScoreBoxUpdate(scoreBoxModel) {
-    scoreBoxModel ? this._buildScoreBoxView(scoreBoxModel) : this._destroyScoreBoxeView();
+    scoreBoxModel ? this._buildScoreBoxView(scoreBoxModel) : this._destroyScoreBoxView();
   }
 
   _buildBoardView(boardModel) {
@@ -52,35 +53,41 @@ export class GameView extends PixiGrid {
     this.setChild('scoreBox', this._scoreBoxView);
   }
 
+  _onTextUpdate() {
+    this.setChild('scoreBox', this._scoreBoxView);
+  }
+
   _destroyBoardView() {
     this._boardView.destroy();
   }
 
-  _destroyScoreBoxeView() {
+  _destroyScoreBoxView() {
     this._scoreBoxView.destroy({ children: true });
   }
-  _onGameOverUpdate(newvalue) {
-    newvalue ? this._createGameOverView(newvalue) : console.warn('nnnnnnnnnnnnnnnnnn');
+
+  _onGameOverUpdate(newValue) {
+    newValue ? this._createGameOverView(newValue) : this._destroyGameOverView();
   }
 
-  _createGameOverView(newvalue) {
-    this._gameOver = new gameOverView();
+  _createGameOverView() {
+    this._boardView.disableAllBalls();
+
+    this._gameOver = new GameOverView();
     this._gameOver.on(ViewEvents.GameOverView.OnClick, this._onRetryClick, this);
     this.setChild('gameOver', this._gameOver);
   }
 
-  _destroyeGameOverView() {
+  _destroyGameOverView() {
     this.removeChild(this._gameOver);
     this._gameOver = null;
-    return this._gameOver;
   }
 
   _onRetryClick() {
     lego.event.emit(ViewEvents.GameView.RetryClick);
   }
 
-  _onNextBallsUpdate(newvalue) {
-    this._nextBalls = new NextBallsView(newvalue);
+  _onNextBallsUpdate(newValue) {
+    this._nextBalls = new NextBallsView(newValue);
     this.setChild('nextBalls', this._nextBalls);
   }
 }

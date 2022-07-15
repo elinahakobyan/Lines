@@ -1,9 +1,9 @@
 import { lego } from '@armathai/lego';
+import chunk from 'lodash.chunk';
+import { boardConfig } from '../configs/board-config';
 import { ModelEvents } from '../events/model-events';
 import { ViewEvents } from '../events/view-events';
 import { CellView } from './cell-view';
-import chunk from 'lodash.chunk';
-import { boardConfig } from '../configs/board-config';
 
 export class BoardView extends PIXI.Container {
   constructor() {
@@ -25,6 +25,12 @@ export class BoardView extends PIXI.Container {
     return this._cells.find((cell) => cell.uuid === uuid);
   }
 
+  disableAllBalls() {
+    this._cells.forEach((cell) => {
+      cell.interactive = false;
+    });
+  }
+
   _onCellsUpdate(cells) {
     this._createCells(cells);
     lego.event.emit(ViewEvents.BoardView.CreateBoard);
@@ -34,16 +40,16 @@ export class BoardView extends PIXI.Container {
     lego.event.emit(ViewEvents.BoardView.CellClick, uuid);
   }
 
-  _onSelectedUpdate(newvalue, oldvalue, uuid) {
+  _onSelectedUpdate(newValue, oldValue, uuid) {
     const cell = this.getCellByUuid(uuid);
-    newvalue ? cell.select() : cell.deselect();
+    newValue ? cell.select() : cell.deselect();
   }
 
   _createCells(cells) {
     const { boardDimension } = boardConfig;
     const cells2D = chunk(cells, boardDimension);
 
-    const gap = 15;
+    const gap = 5;
     for (let i = 0; i < boardDimension; i++) {
       for (let j = 0; j < boardDimension; j++) {
         const cell = cells2D[i][j];

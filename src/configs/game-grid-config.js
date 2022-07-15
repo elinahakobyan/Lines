@@ -1,4 +1,4 @@
-import { CellAlign, CellScale } from '@armathai/pixi-grid';
+import { CellAlign } from '@armathai/pixi-grid';
 
 function LP(l, p) {
   return window.innerWidth > window.innerHeight ? l : p;
@@ -7,103 +7,54 @@ function LP(l, p) {
 export function gameGridConfig() {
   return LP(
     {
-      // debug: {
-      //   color: 0x00ff00,
-      // },
       name: 'game',
       cells: [
         {
-          // debug: {
-          //   color: 0x00ff00,
-          // },
           name: 'board',
-          bounds: { x: 0.3, y: 0.15, width: 0.4, height: 0.7 },
+          bounds: { x: 0.3, y: 0.3, width: 0.4, height: 0.55 },
           align: CellAlign.centerTop,
-          scale: CellScale.showAll,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0xbdcfdd,
-          //   fill: true,
-          // },
         },
         {
           name: 'scoreBox',
-          bounds: { x: 0.3, y: 0.05, width: 0.18, height: 0.08 },
-          // align: CellAlign.centerTop,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0x0000ff,
-          //   fill: true,
-          // },
+          bounds: { x: 0.3, y: 0.15, width: 0.18, height: 0.08 },
         },
         {
+          // debug: { color: 0x00ff00 },
           name: 'gameOver',
-          bounds: { x: 0.3, y: 0.25, width: 0.4, height: 0.45 },
-          // align: CellAlign.centerTop,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0x0000ff,
-          //   fill: true,
-          // },
+          bounds: { x: 0.3, y: 0.3, width: 0.4, height: 0.55 },
         },
         {
           name: 'nextBalls',
-          bounds: { x: 0.52, y: 0.05, width: 0.18, height: 0.08 },
+          bounds: { x: 0.52, y: 0.15, width: 0.18, height: 0.08 },
           align: CellAlign.leftCenter,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0x000000,
-          //   fill: true,
-          // },
         },
       ],
     },
+
     {
-      // debug: {
-      //   color: 0xff0000,
-      // },
+      // debug: { color: 0xff0000 },
       name: 'game',
       cells: [
         {
           name: 'board',
-          bounds: { x: 0.3, y: 0.15, width: 0.4, height: 0.7 },
+          bounds: { x: 0, y: 0.2, width: 1, height: 0.55 },
           align: CellAlign.centerTop,
-          scale: CellScale.showAll,
-
-          // debug: {
-          //   color: 0xbdcfdd,
-          //   fill: true,
-          // },
+          padding: { x: 0.1, width: 0.8 },
         },
         {
           name: 'scoreBox',
-          bounds: { x: 0.3, y: 0.05, width: 0.18, height: 0.08 },
-          // align: CellAlign.centerTop,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0x0000ff,
-          //   fill: true,
-          // },
+          bounds: { x: 0.1, y: 0.05, width: 0.45, height: 0.08 },
+          align: CellAlign.leftCenter,
         },
         {
+          // debug: { color: 0xff0000 },
           name: 'gameOver',
-          bounds: { x: 0.3, y: 0.25, width: 0.4, height: 0.45 },
+          bounds: { x: 0.1, y: 0.2, width: 0.8, height: 0.55 },
           // align: CellAlign.centerTop,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0x0000ff,
-          //   fill: true,
-          // },
         },
         {
           name: 'nextBalls',
-          bounds: { x: 0.5, y: 0.05, width: 0.2, height: 0.08 },
-          // align: CellAlign.centerTop,
-          // padding: 0.1,
-          // debug: {
-          //   color: 0x000000,
-          //   fill: true,
-          // },
+          bounds: { x: 0.55, y: 0.05, width: 0.35, height: 0.08 },
         },
       ],
     }
